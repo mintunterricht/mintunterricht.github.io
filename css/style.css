@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+/* Layout */
+
+header {
+    width: calc(100vw - 32px);
+    height: 48px;
+    background-color: #07070A;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+canvas {
+    background-color: #ffffff;
+}
+
+.data-screen, .model-screen, .training-screen {
+    width: 100%;
+    background-color: #4A525A;
+    display: flex;
+    flex-direction: row;
+}
+
+.data-screen {
+    justify-content: center;
+    gap: 32px;
+    padding: 32px 0;
+    
+    height: calc(100vh - 48px - 64px);
+}
+
+.dataset-selection-container {
+    margin-top: 8px;
+}
+
+.data-selection-area, .option-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 256px;
+    background-color: #24272B;
+    padding: 8px;
+}
+
+.selection-text, .explanation-text, .training-process-indicator {
+    color: #ffffff;
+}
+
+.selection-text {
+    margin-top: 4px;
+}
+
+.explanation-text {
+    margin-bottom: 8px;
+}
+
+.explanation-text:last-of-type {
+    margin-top: 16px;
+}
+
+.training-screen {
+    
+    justify-content: center;
+    gap: 32px;
+    padding: 32px 0;
+    height: calc(100vh - 48px - 64px);
+}
+
+.layer-area {
+    width: 224px;
+    height: calc(100vh - 48px);
+    background-color: #24272B;
+    border-right: 1px solid #07070A;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.coding-area {
+    width: 100vw;
+    height: calc(100vh - 48px - 16px);
+    background-color: #4A525A;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.execution-area {
+    display: none;
+    width: calc(100vw - 640px - 192px);
+    height: calc(100vh - 48px);
+}
+
+/* Styling of the elements */
+
+.logo, .logo img {
+    height: 36px;
+}
+
+.layer-area-toggle-btn {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    top: -40%;
+    left: -48%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.layer-area-toggle-btn:hover {
+    background-color: #777777;
+}
+
+.model {
+    width: 576px;
+    min-height: 32px;
+    background-color: #24272B;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.model-type {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: medium;
+    width: 100%;
+    height: 32px;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.model-layers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-height: 8px;
+    background-color: #555555;
+    border-radius: 4px;
+}
+
+.layer-types .layer {
+    cursor: move;
+}
+
+.layer {
+    width: calc(100% - 16px);
+    height: 36px;
+    border-radius: 4px;
+    background-color: #FF595E;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 8px;
+    justify-content: space-between;
+
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+
+.layer-types, .not-implemented-layer-types {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.layer-types .layer, .not-implemented-layer-types .layer {
+    justify-content: flex-start;
+}
+
+.layer-types .layer .neurons, .layer-types .layer .activation, .not-implemented-layer-types .layer .neurons, .not-implemented-layer-types .layer .activation {
+    display: none;
+}
+
+.link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.data-load-btn, .train-btn {
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none
+}
+
+.step-btn {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.layer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.layer-name, .layer-units, .info-text {
+    color: #ffffff;
+}
+
+.active {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.layer-category-title {
+    color: #ffffff;
+}
+
+.conv {
+    background-color: #5B9279;
+}
+
+.embedding {
+    background-color: #2374AB;
+}

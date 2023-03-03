@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <script src="js/main.js" type="module" defer></script>
+    <script src="js/model.js" type="modele" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="#"><img src="img/logo.svg" alt="Logo"></a></div>
+        <div class="steps">
+            <button id="data-screen-btn" class="step-btn active">Schritt 1: Daten</button>
+            <button id="model-screen-btn"class="step-btn">Schritt 2: Modell</button>
+            <button id="training-screen-btn" class="step-btn">Schritt 3: Training</button>
+        </div>
+        <a href="#" class="link">MINTUnterricht.de</a>
+    </header>
+    <main>
+        <div id="data-screen" class="data-screen">
+            <div class="data-selection-area">
+                <div class="problem-selection-container">
+                    <span class="selection-text">Wähle eine Problemart aus</span>
+                    <select name="Problem Selection" id="problem-selection" class="selection">
+                        <option value="regression">Regression</option>
+                        <option value="classification">Klassifikation</option>
+                    </select>
+                </div>
+                <div class="dataset-selection-container">
+                    <div id="regression-datasets">
+                        <p class="explanation-text">Bei Regressionsproblemen soll vom KI-Modell gelernt werden eine stetigen Wert vorherzusagen.</p>
+                        <span class="selection-text">Wähle einen Datensatz aus</span>
+                        <select name="Data Selection" id="data-selection" class="selection">
+                            <option value="mileshp">Spritverbrauch mit PS vorhersagen</option>
+                        </select>
+                        <p class="explanation-text">Bei diesem Demo-Datensatz soll das neuronale Netzwerk die Meilen pro Gallone (amerikanischer Datensatz) anhand der gegebenen PS-Anzahl eines Autos vorhersagen.</p>
+                    </div>
+                    <div id="classification-datasets">
+                        <p class="explanation-text">Bei Klassifikationsproblemen soll vom KI-Modell gelernt werden eine Klasse von vielen vordefinierten Klassen vorherzusagen.</p>
+                        <span class="selection-text">Hier gibt es noch keine Datensätze.</span>
+                    </div>
+                </div>
+                <button id="data-load-btn" class="data-load-btn">Daten laden</button>
+            </div>
+            <div class="data-visualisation-area">
+                <canvas id="data-viz" width="640px" height="400px"></canvas>
+            </div>
+        </div>
+        <div id="model-screen" class="model-screen">
+            <div id="layer-area" class="layer-area">
+                <div id="layer-types" class="layer-types">
+                    <span class="layer-category-title">Vollverknüpfte Layer (bereits implementiert)</span>
+                    <div class="layer">
+                        <span class="layer-type">Dense Layer</span>
+                        <div class="neurons">
+                            <span>Anzahl Neuronen</span>
+                            <input type="number" name="Anzahl Neuronen" id="num-neurons" class="num-neurons" min="1" max="9999">
+                        </div>
+                        <div class="activation">
+                            <span>Aktivierungsfunktion</span>
+                            <select name="Activation Function" id="activation-function">
+                                <option value="none"></option>
+                                <option value="relu">ReLU</option>
+                                <option value="sigmoid">Sigmoid</option>
+                                <option value="softmax">Softmax</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="not-implemented-layer-types">
+                    <span class="layer-category-title">Convolutional Layer (noch nicht implementiert)</span>
+                    <div class="layer conv">
+                        <span class="layer-type">Convolutional Layer</span>
+                        <div class="neurons">
+                            <span>Num. Neurons</span>
+                            <input type="number" name="Anzahl Neuronen" id="num-neurons" class="num-neurons" min="1" max="9999">
+                        </div>
+                        <div class="activation">
+                            <span>Activation function</span>
+                            <select name="Activation Function" id="activation-function">
+                                <option value="none"></option>
+                                <option value="relu">ReLU</option>
+                                <option value="sigmoid">Sigmoid</option>
+                                <option value="softmax">Softmax</option>
+                            </select>
+                        </div>
+                    </div>
+                    <span class="layer-category-title">Embedding Layer (noch nicht implementiert)</span>
+                    <div class="layer embedding">
+                        <span class="layer-type">Embedding Layer</span>
+                        <div class="neurons">
+                            <span>Num. Neurons</span>
+                            <input type="number" name="Anzahl Neuronen" id="num-neurons" class="num-neurons" min="1" max="9999">
+                        </div>
+                        <div class="activation">
+                            <span>Activation function</span>
+                            <select name="Activation Function" id="activation-function">
+                                <option value="none"></option>
+                                <option value="relu">ReLU</option>
+                                <option value="sigmoid">Sigmoid</option>
+                                <option value="softmax">Softmax</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coding-area">
+                <div id="layer-area-toggle-btn" class="layer-area-toggle-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+                    </svg>      
+                </div>
+                <div class="model">
+                    <div class="model-type">
+                        Sequentielles Modell
+                    </div>
+                    <div id="model-layers" class="model-layers">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="training-screen" class="training-screen">
+            <div class="option-area">
+                <button id="train-btn" class="train-btn">Modell trainieren</button>
+                <span id="training-process-indicator" class="training-process-indicator"></span>
+                <div id="model-summary" class="model-summary">
+                    <span class="info-text">Modellzusammenfassung:</span>
+                </div>
+            </div>
+            <div class="training-output-area">
+                <canvas id="output-viz" width="640px" height="400px"></canvas>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
